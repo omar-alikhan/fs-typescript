@@ -15,7 +15,7 @@ interface ExerciseResult {
 }
 
 interface ExerciseHourValues {
-  exerciseHours: any;
+  exerciseHours: number[];
   target: number;
 }
 
