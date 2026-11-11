@@ -19,7 +19,7 @@ const parseBmiArguments = (args: string[]): BmiValues => {
   }
 };
 
-const calculateBmi = (height: number, weight: number): BmiRange => {
+export const calculateBmi = (height: number, weight: number): BmiRange => {
   const heightInMetres = height / 100;
   const bmi: number = weight / heightInMetres ** 2;
 
@@ -36,9 +36,12 @@ const calculateBmi = (height: number, weight: number): BmiRange => {
       throw new Error("Height and weight are not numbers!");
   }
 };
+
 try {
-  const { height, weight } = parseBmiArguments(process.argv);
-  console.log(calculateBmi(height, weight));
+  if (process.argv[1] === import.meta.filename) {
+    const { height, weight } = parseBmiArguments(process.argv);
+    console.log(calculateBmi(height, weight));
+  }
 } catch (error: unknown) {
   let errorMessage = "Something went wrong: ";
   if (error instanceof Error) {
