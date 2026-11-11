@@ -37,7 +37,7 @@ app.post("/exercises", (req: Request, res: Response) => {
     const target: number = req.body.target;
 
     if (!dailyExercises || !target) {
-      return res.status(400).json({ error: "missing parameters" });
+      return res.status(400).json({ error: "parameters missing" });
     }
 
     const exerciseResult: ExerciseResult = calculateExercises(
@@ -54,7 +54,7 @@ app.post("/exercises", (req: Request, res: Response) => {
   return;
 });
 
-const PORT = 3003;
+const PORT = 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
