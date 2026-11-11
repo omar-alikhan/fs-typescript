@@ -4,7 +4,7 @@ type RatingDescription =
   | "not too bad but could be better"
   | "wow you're doing great, keep it up!";
 
-interface ExerciseResult {
+export interface ExerciseResult {
   periodLength: number;
   trainingDays: number;
   success: boolean;
@@ -36,10 +36,14 @@ const parseExerciseHourArguments = (args: string[]): ExerciseHourValues => {
   }
 };
 
-const calculateExercises = (
+export const calculateExercises = (
   exerciseHours: number[],
   target: number,
 ): ExerciseResult => {
+  if (isNaN(target) || exerciseHours.some(hour => isNaN(hour))) {
+    throw new Error("Provided values were not numbers!");
+  }
+
   const periodLength: number = exerciseHours.length;
   const totalHours: number = exerciseHours.reduce(
     (sum, hours) => sum + hours,
@@ -81,8 +85,10 @@ const calculateExercises = (
 };
 
 try {
-  const { exerciseHours, target } = parseExerciseHourArguments(process.argv);
-  console.log(calculateExercises(exerciseHours, target));
+  if (process.argv[1] === import.meta.filename) {
+    const { exerciseHours, target } = parseExerciseHourArguments(process.argv);
+    console.log(calculateExercises(exerciseHours, target));
+  }
 } catch (error: unknown) {
   let errorMessage = "Something went wrong: ";
   if (error instanceof Error) {
