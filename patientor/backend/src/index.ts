@@ -19,7 +19,3 @@ app.use("/api/diagnoses", diagnosesRouter);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-// Instructions
-
-// Create a POST endpoint /api/patients for adding patients. Ensure that you can add patients also from the frontend. You can create unique ids of type string using the uuid (opens in a new tab) library:
