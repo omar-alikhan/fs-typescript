@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import diaryService from "./services/diaries";
-import { type DiaryEntry } from "./types";
+import { type DiaryEntry, type NewDiaryEntry } from "./types";
 import Diary from "./components/Diary";
 import axios from "axios";
 import DiaryEntryForm from "./components/DiaryEntryForm";
@@ -14,19 +14,9 @@ function App() {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleNewDiaryEntry = async (
-    date: string,
-    visibility: string,
-    weather: string,
-    comment: string,
-  ) => {
+  const handleNewDiaryEntry = async (entry: NewDiaryEntry) => {
     try {
-      const newEntry = await diaryService.create(
-        date,
-        visibility,
-        weather,
-        comment,
-      );
+      const newEntry = await diaryService.create(entry);
       setDiaryEntries(entries => [...entries, newEntry]);
       setErrorMessage(null);
     } catch (error: unknown) {

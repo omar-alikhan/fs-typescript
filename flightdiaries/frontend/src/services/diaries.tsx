@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { type DiaryEntry } from "../types";
+import { type DiaryEntry, type NewDiaryEntry } from "../types";
 
 const getAll = async () => {
   const { data } = await axios.get<DiaryEntry[]>("/api/diaries");
@@ -8,18 +8,8 @@ const getAll = async () => {
   return data;
 };
 
-const create = async (
-  date: string,
-  visibility: string,
-  weather: string,
-  comment: string,
-) => {
-  const { data } = await axios.post<DiaryEntry>("/api/diaries", {
-    date,
-    visibility,
-    weather,
-    comment,
-  });
+const create = async (entry: NewDiaryEntry) => {
+  const { data } = await axios.post<DiaryEntry>("/api/diaries", entry);
 
   return data;
 };

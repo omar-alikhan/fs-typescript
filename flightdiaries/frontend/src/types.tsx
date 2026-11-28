@@ -10,6 +10,12 @@ export const Weather = {
 
 export type Weather = (typeof Weather)[keyof typeof Weather];
 
+const weatherValues: string[] = Object.values(Weather);
+
+export function isWeather(value: string): value is Weather {
+  return weatherValues.includes(value);
+}
+
 export const Visibility = {
   Great: "great",
   Good: "good",
@@ -18,6 +24,12 @@ export const Visibility = {
 } as const;
 
 export type Visibility = (typeof Visibility)[keyof typeof Visibility];
+
+const visibilityValues: string[] = Object.values(Visibility);
+
+export function isVisibility(value: string): value is Visibility {
+  return visibilityValues.includes(value);
+}
 
 export const NewEntrySchema = z.object({
   weather: z.enum(Weather),
