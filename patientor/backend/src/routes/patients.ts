@@ -6,6 +6,7 @@ import express, {
 import patientsService from "../services/patientsService.ts";
 import {
   type NewPatient,
+  type Patient,
   NewPatientSchema,
   type NonSensitivePatient,
 } from "../types.ts";
@@ -40,6 +41,12 @@ const errorMiddleware = (
 router.get("/", (_req, res: Response<NonSensitivePatient[]>) => {
   const data = patientsService.getNonSensitivePatients();
   res.send(data);
+});
+
+router.get("/:id", (req, res: Response<Patient | undefined>) => {
+  const id = req.params.id;
+  const patient = patientsService.getPatient(id);
+  res.send(patient);
 });
 
 router.post(
